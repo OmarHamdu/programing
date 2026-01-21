@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خريطة طريق المطور الشامل | Ultimate Roadmap</title>
+    
+    <!-- خط عربي حديث -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- مكتبة الأيقونات RemixIcon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        /* المتغيرات الأساسية للتصميم */
+        :root {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-primary: #38bdf8;
+            --accent-secondary: #818cf8;
+            --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            --border-radius: 14px;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* الهيدر وشريط البحث */
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #334155;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            padding-left: 2.5rem;
+            border-radius: 50px;
+            border: 1px solid #334155;
+            background-color: rgba(30, 41, 59, 0.9);
+            color: white;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* الشبكة الرئيسية */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+
+        /* تصميم الكارت */
+        .card {
+            background-color: var(--bg-card);
+            border-radius: var(--border-radius);
+            padding: 1.2rem;
+            border: 1px solid #334155;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-primary);
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+        }
+
+        .links-container {
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .btn-link {
+            flex-grow: 1;
+            min-width: 45px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            background-color: #0f172a;
+            color: var(--text-secondary);
+            border: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .btn-link:hover {
+            background: var(--accent-gradient);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* رسالة عدم وجود نتائج */
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 3rem;
+            color: var(--text-secondary);
+            display: none;
+            font-size: 1.1rem;
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid #334155;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>مسار التطور البرمجي الشامل</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن أي مرحلة (مثل: React, Docker, Unity)...">
+            <i class="ri-search-line search-icon"></i>
+        </div>
+    </header>
+
+    <main>
+        <div class="grid">
+
+            <!-- 1. CS50 -->
+            <article class="card" data-title="cs50 harvard">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-braces-line"></i></div>
+                    <h3 class="card-title">CS50</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLknwEmKsW8OvMsFbU9zo8oJCprAsgc4LO&si=USc5m4im0T__K0Or" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 2. ما قبل البرمجة -->
+            <article class="card" data-title="ما قبل البرمجة pre-programming">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-lightbulb-flash-line"></i></div>
+                    <h3 class="card-title">ما قبل البرمجه</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAx8xKvAXpb6f0Urj98Xo7zg&si=FH9EK8Kf7ar7DAtJ" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 3. مصطلحات البرمجة -->
+            <article class="card" data-title="مصطلحات البرمجة terminology">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-book-read-line"></i></div>
+                    <h3 class="card-title">مصطلاحات البرمجه</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLvGNfY-tFUN8m7OmaInVSIq3dW7iWVCIo&si=7NVJIODwJUuC9GHI" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 4. Command Line -->
+            <article class="card" data-title="command line cmd">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-terminal-line"></i></div>
+                    <h3 class="card-title">command line</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAxzNO8ixW83Sf8FnLy_MkUT&si=Wr_KQBdXsRbU7NmM" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 5. Linux Command Line -->
+            <article class="card" data-title="linux command line terminal">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-ubuntu-line"></i></div>
+                    <h3 class="card-title">linux command line</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLLlr6jKKdyK15rw72epw7iEDb0DL_af3C&si=Jo0IWQKnX-PPvFNo" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 6. Git -->
+            <article class="card" data-title="git version control">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-git-merge-line"></i></div>
+                    <h3 class="card-title">Git</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLYyqC4bNbCIeCHLTRtwdLpQvle_zIavZ-&si=7o5QqPmVEsdhvBE_" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 7. Github -->
+            <article class="card" data-title="github hosting">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-github-fill"></i></div>
+                    <h3 class="card-title">Github</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAw4eOj58MZPakHjaO3frVMF&si=Ne8GqCJBZw33J2im" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 8. C++ -->
+            <article class="card" data-title="c++ programming">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-cpp-line"></i></div>
+                    <h3 class="card-title">c++</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAwy-rS6WKudwVeb_x63EzgS&si=0ABUbDy5kc8rb4Dh" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 9. OOP -->
+            <article class="card" data-title="oop object oriented">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-shape-line"></i></div>
+                    <h3 class="card-title">oop</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PL1DUmTEdeA6KLEvIO0NyrkT91BVle8BOU&si=evc-PopjjS_mTnJ-" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 10. SOLID Principles -->
+            <article class="card" data-title="solid principles design">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-ruler-2-line"></i></div>
+                    <h3 class="card-title">solid principles</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLYOFAmhj26B_WvbghzzHTkokHmx7G-AEr&si=X0q4IapXkeQg34W9" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 11. Data Structures -->
+            <article class="card" data-title="data structures">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-database-2-line"></i></div>
+                    <h3 class="card-title">Data structures</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLCInYL3l2AajqOUW_2SwjWeMwf4vL4RSp&si=Lp3OeDayBjMlLy55" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 12. Data base -->
+            <article class="card" data-title="data base database">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-server-line"></i></div>
+                    <h3 class="card-title">Data base</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLdo5W4Nhv31b33kF46f9aFjoJPOkdlsRc&si=JHhM5SBpRvTV19pJ" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLBlnK6fEyqRiyryTrbKHX1Sh9luYI0dhX&si=ahGGmucUe4tM49T2" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 13. Sql -->
+            <article class="card" data-title="sql database query">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-table-line"></i></div>
+                    <h3 class="card-title">sql</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/SSKVgrwhzus?si=2WwZ5bRa7YLGkAIC" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 14. Mysql -->
+            <article class="card" data-title="mysql database">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-database-line"></i></div>
+                    <h3 class="card-title">mysql</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/ztHopE5Wnpc?si=1FjnQmlj8JmVd5ZP" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAz6DT8SzQ1CODJTH-NIA7R9&si=GjZA-blbZgbBURFF" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 15. MongoDB -->
+            <article class="card" data-title="mongodb nosql">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-leaf-line"></i></div>
+                    <h3 class="card-title">MongoDB</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PL4cUxeGkcC9h77dJ-QJlwGlZlTd4ecZOA&si=y3C96TLCrw2Pemaz" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 16. Algorithms -->
+            <article class="card" data-title="algorithms">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-flow-chart"></i></div>
+                    <h3 class="card-title">algorithms</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLL2zWZTDFZzjxarUL23ydiOgibhRipGYC&si=k7UTov9l-EAFOOP2" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 17. Problem Solving -->
+            <article class="card" data-title="problem solving">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-puzzle-2-line"></i></div>
+                    <h3 class="card-title">problem solving</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAyX4CCOP--TR36SfD5g7gru&si=_2Fyfi26g1vQ36d4" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PL1WUzFgZVuFg59PV0tUvsm9K3WbX2jNXk&si=tCQ29AUnr-_7iZ_n" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 18. Html5 -->
+            <article class="card" data-title="html5 markup">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-html5-line"></i></div>
+                    <h3 class="card-title">html5</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLknwEmKsW8OvX7kZhsv6I6tT8SKDXDwUc&si=XOxiSibdLrGf7L8r" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 19. Css3 -->
+            <article class="card" data-title="css3 styling">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-css3-line"></i></div>
+                    <h3 class="card-title">css3</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLknwEmKsW8Os7rKViMCL8x6irVJT7McSS&si=cY7pqTQWJIbsMMDD" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 20. Responsive design -->
+            <article class="card" data-title="responsive design mobile">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-smartphone-line"></i></div>
+                    <h3 class="card-title">responsive design</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/srvUrASNj0s?si=IAni91JER0d_wybz" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAzVaRnCYoklHqz01jve8ZWv&si=cElbs8B--UIFJjag" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 21. CSS framework -->
+            <article class="card" data-title="css framework bootstrap">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-layout-4-line"></i></div>
+                    <h3 class="card-title">css framework</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/6biMWgD6_JY?si=sNZvHBfPY_n6lilw" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/-qfEOE4vtxE?si=1CZj19NMtyt2w2AB" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 22. Tailwind css -->
+            <article class="card" data-title="tailwind css">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-windy-line"></i></div>
+                    <h3 class="card-title">Tailwind css</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/XQVcsGbMBCM?si=KUflPUN0D_aVpt1P" target="_blank" class="btn-link">مشاهدة</a>
+                </div>
+            </article>
+
+            <!-- 23. Javascript -->
+            <article class="card" data-title="javascript js">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-javascript-line"></i></div>
+                    <h3 class="card-title">javascript</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAx3kiplQR_oeDqLDBUDYwVv&si=htS3tj0XqeHS-Q8_" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLknwEmKsW8OuTqUDaFRBiAViDZ5uI3VcE&si=SL5KbDBdJ48I-E8Y" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 24. Typescript -->
+            <article class="card" data-title="type script typescript ts">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-code-box-line"></i></div>
+                    <h3 class="card-title">type script</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLDoPjvoNmBAy532K9M_fjiAmrJ0gkCyLJ&si=6cUOGdreuJ5IiBE_" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLAhPJ5tzB6ALRWCae49De5C6aEs04PcCk&si=K9cFXqDG0o9fe2-_" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 25. React.js -->
+            <article class="card" data-title="react js library">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-reactjs-line"></i></div>
+                    <h3 class="card-title">react js</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLYyqC4bNbCIdSZ-JayMLl4WO2Cr995vyS&si=n5DB5yp24PPzQdnp" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/TtPXvEcE11E?si=kpzmATa2peRSKYTa" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 26. Next.js -->
+            <article class="card" data-title="next js framework">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-nextjs-line"></i></div>
+                    <h3 class="card-title">next js</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/Zq5fmkH0T78?si=ugFF_HnQhhbTYJM5" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PL5gCk5NdNx58-q_gwuL6355afD8T_kIa0&si=zlg2GG_suhWqPsXE" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 27. State management -->
+            <article class="card" data-title="state management redux">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-store-2-line"></i></div>
+                    <h3 class="card-title">State management</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/MABIjYUndDw?si=4g1vsBylIP5ga2JP" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/fZPgBnL2x-Q?si=tH-tL-d1WNqBBW8O" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 28. Postman -->
+            <article class="card" data-title="postman api test">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-send-plane-fill"></i></div>
+                    <h3 class="card-title">Postman</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLJ2FoWouEU2yPMIBTGsMRvxjEevIlMi3F&si=9km2QW2oluBRFHRF" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/wEOLZq-7DYs?si=e8Oq24-MPEhyC9pU" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 29. Api frontend -->
+            <article class="card" data-title="api frontend fetch">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-download-cloud-line"></i></div>
+                    <h3 class="card-title">Api frontend</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/WXsD0ZgxjRw?si=Ma_IPSdlWjbObiFu" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/GPEuQ2BPqkE?si=S6DD3GX91VguGy6Y" target="_blank" class="btn-link">2</a>
+                    <a href="https://www.youtube.com/live/GvTRmJtteng?si=N0wnYXRJidgwRaN7" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 30. Node.js -->
+            <article class="card" data-title="node js runtime">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-nodejs-line"></i></div>
+                    <h3 class="card-title">node js</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLeWmXrh00479LgmvKAdU8WV2nRXqX4ley&si=Euuk6YaMxU19rd_H" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/Oe421EPjeBE?si=OclgdIKjdPkhXLuB" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 31. express.js -->
+            <article class="card" data-title="express js framework">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-function-line"></i></div>
+                    <h3 class="card-title">express.js</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/nH9E25nkk3I?si=OmAN6kOuqjWQ0Xui" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLuoGAlGgCSELOwRF5FJkt-AlKW-TI5kiV&si=CeLoM6TktpT1eM3g" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtu.be/DURM6yft8RU?si=NUVt5wcTCcSCC-vW" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 32. back end -->
+            <article class="card" data-title="back end backend development">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-hard-drive-2-line"></i></div>
+                    <h3 class="card-title">back end</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/lAetWzfUgz8?si=0JiJ82iuuY0GoL4L" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/Sw4FQGUvw7w?si=zvCehO_L7wBZK6ee" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtu.be/gxHXPmePnvo?si=DCAwTBtVuybBdprm" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 33. Api design -->
+            <article class="card" data-title="api design rest">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-plug-line"></i></div>
+                    <h3 class="card-title">Api design</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLgAqrVq84PDcOryFRPZmhXR_FwGauGtyv&si=Hht3W4cy0wKILOQZ" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/7iHl71nt49o?si=kMBjkns2Z9rxy51W" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 34. Authentication -->
+            <article class="card" data-title="Authentication auth security">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-lock-2-line"></i></div>
+                    <h3 class="card-title">Authentication</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/A95rliroC8Q?si=U3EHFv6YXV-agaMI" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLRAV69dS1uWR7KF-zV6YPYtKYEHENETyE&si=YCp9AddGrXPVWphZ" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtube.com/playlist?list=PLhnVDNT5zYN-WbouwtijXKFZ1JsgBEY9Y&si=83abSO3dzSnrFQZx" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 35. React native -->
+            <article class="card" data-title="react native mobile">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-cellphone-line"></i></div>
+                    <h3 class="card-title">react native</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLVcFHLLqtJ-HvRs1g1md6cefMp26OSHeT&si=FcNXYPNefDo708uW" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PL4cUxeGkcC9hNTz3sxqGTfxAwU-DIHJd2&si=JDQ0G-Yt14kYFRUA" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 36. C# -->
+            <article class="card" data-title="c sharp">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-hashtag"></i></div>
+                    <h3 class="card-title">c#</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/qZpMX8Re_2Q?si=61-U7VjyrCMTmAbz" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLsV97AQt78NT0H8J71qe7edwRpAirfqOI&si=8I_LmLPchZ5FH-1W" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtu.be/YrtFtdTTfv0?si=FgY0rFz6wNKwusZ8" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 37. .Net -->
+            <article class="card" data-title=".net dotnet framework">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-microsoft-line"></i></div>
+                    <h3 class="card-title">.net</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLP031NiNbUSTba3yQOEd3Nhyu38eaKz6k&si=E4S7RfqTukmqMuoq" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLqPejUavRNTWqGYP-f1pHkbLYdbqi_Uhg&si=CU3lXBCJyQd1Ipvs" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtu.be/aNZOaHDTTIY?si=Hy-JKtTE5ommDMEV" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 38. Mathematics for Games -->
+            <article class="card" data-title="mathematics for games math">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-calculator-line"></i></div>
+                    <h3 class="card-title">Mathematics for Games</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLImQaTpSAdsArRFFj8bIfqMk2X7Vlf3XF&si=bOFp8Uq2_AsdSpHB" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLW3Zl3wyJwWOpdhYedlD-yCB7WQoHf-My&si=_EgsiF6NXb4vJ72w" target="_blank" class="btn-link">2</a>
+                </div>
+            </article>
+
+            <!-- 39. Unity -->
+            <article class="card" data-title="unity game engine">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-gamepad-line"></i></div>
+                    <h3 class="card-title">Unity</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/AmGSEH7QcDg?si=oKM_yVlSVNjuPgM1" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLltZRmsFXWnLp98IIM1CISQYWowq87YSp&si=81x9yzzrciQNP_Nh" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtube.com/playlist?list=PLhiFu-f80eo_7yKyUMqi6_muqEFgKpAHV&si=xnXehoGo6N3yfDzz" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 40. Unit Testing -->
+            <article class="card" data-title="unit testing testing">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-flask-line"></i></div>
+                    <h3 class="card-title">Unit Testing</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLwj1YcMhLRN28xijrXMO255JHsO3csus-&si=ve5vBJAqZEgHDAXH" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/B9rLLcVQfpI?si=DJzreAjeJnWVKrT6" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtube.com/playlist?list=PLwj1YcMhLRN28xijrXMO255JHsO3csus-&si=TEMjR9Xa5ZYaYBKX" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 41. Design Patterns for Games -->
+            <article class="card" data-title="design patterns for games">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-shape-2-line"></i></div>
+                    <h3 class="card-title">Design Patterns for Games</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtube.com/playlist?list=PLlsmxlJgn1HJpa28yHzkBmUY-Ty71ZUGc&si=5mvzfY3D8YUmIwdH" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtube.com/playlist?list=PLvv0ScY6vfd9wBflF0f6ynlDQuaeKYzyc&si=d4wzgkqfgwAgHLY4" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtu.be/rylaiB2uH2A?si=DmXTNuARxb6sEzht" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+            <!-- 42. Docker Basics -->
+            <article class="card" data-title="docker basics container">
+                <div class="card-header">
+                    <div class="card-icon"><i class="ri-container-line"></i></div>
+                    <h3 class="card-title">Docker Basics</h3>
+                </div>
+                <div class="links-container">
+                    <a href="https://youtu.be/3c-iBn73dDE?si=9GcB083VVGsCmoDR" target="_blank" class="btn-link">1</a>
+                    <a href="https://youtu.be/RqTEHSBrYFw?si=1Jh-Z1oZKRShRJGs" target="_blank" class="btn-link">2</a>
+                    <a href="https://youtube.com/playlist?list=PLzNfs-3kBUJnY7Cy1XovLaAkgfjim05RR&si=FQ1cFUSguVml0vh5" target="_blank" class="btn-link">3</a>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="no-results" id="noResults">
+            <p>لا توجد نتائج مطابقة لبحثك.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>جميع الحقوق محفوظة © 2024 | خريطة الطريق البرمجية الشاملة (الإصدار النهائي)</p>
+    </footer>
+
+    <script>
+        // وظيفة البحث الفوري
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.card');
+        const noResults = document.getElementById('noResults');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            let hasResults = false;
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const dataTitle = card.getAttribute('data-title');
+                
+                if (title.includes(term) || dataTitle.includes(term)) {
+                    card.style.display = 'flex';
+                    hasResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if (!hasResults) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
